@@ -1,0 +1,67 @@
+﻿<Window x:Class="HardwareMonitor.HelpWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Справка"
+        Height="600"
+        Width="500"
+        WindowStartupLocation="CenterOwner">
+
+	<ScrollViewer Margin="15">
+		<StackPanel>
+
+			<TextBlock Text="Hardware Monitor — приложение для мониторинга аппаратных ресурсов компьютера."
+					   FontWeight="Bold"
+					   FontSize="14"
+					   TextWrapping="Wrap"
+					   Margin="0,0,0,15"/>
+
+			<TextBlock Text="ФУНКЦИОНАЛ ПРОГРАММЫ:"
+					   FontWeight="Bold"
+					   Margin="0,0,0,10"/>
+
+			<TextBlock Text="1. Мониторинг процессора"
+					   FontWeight="Bold"
+					   Margin="0,5,0,2"/>
+			<TextBlock Text="• Модель процессора&#x0a;
+• Количество ядер и потоков&#x0a;
+• Частота&#x0a;
+• Загрузка;"
+					   TextWrapping="Wrap"
+					   Margin="15,0,0,5"/>
+
+			<TextBlock Text="2. Мониторинг оперативной памяти"
+					   FontWeight="Bold"
+					   Margin="0,5,0,2"/>
+			<TextBlock Text="• Общий объем&#x0a;
+• Доступная память&#x0a;
+• Процент использования&#x0a;
+• Информация о модулях"
+					   TextWrapping="Wrap"
+					   Margin="15,0,0,5"/>
+
+			<TextBlock Text="3. Мониторинг дисков"
+					   FontWeight="Bold"
+					   Margin="0,5,0,2"/>
+			<TextBlock Text="• Физические диски&#x0a;
+• Логические разделы&#x0a;
+• Объем и свободное место"
+					   TextWrapping="Wrap"
+					   Margin="15,0,0,10"/>
+
+			<TextBlock Text="Экспорт данных:"
+					   FontWeight="Bold"
+					   Margin="0,10,0,2"/>
+
+			<TextBlock Text="• TXT — текстовый отчет&#x0a;
+• CSV — таблица для Excel&#x0a;
+• JSON — структурированный формат"
+					   Margin="15,0,0,20"/>
+
+			<Button Content="OK"
+					Width="80"
+					HorizontalAlignment="Right"
+					Click="Button_Click"/>
+
+		</StackPanel>
+	</ScrollViewer>
+</Window>

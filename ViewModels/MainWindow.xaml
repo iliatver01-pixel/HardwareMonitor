@@ -1,0 +1,137 @@
+﻿<Window x:Class="HardwareMonitor.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="clr-namespace:HardwareMonitor.ViewModels"
+        mc:Ignorable="d"
+        Title="Hardware Monitor" Height="600" Width="894">
+
+    <Window.DataContext>
+        <vm:MainViewModel/>
+    </Window.DataContext>
+
+    <Grid Margin="10">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0*"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <!-- Кнопки -->
+        <StackPanel Orientation="Horizontal" Margin="0,0,0,10" Grid.ColumnSpan="2">
+            <Button Content="Обновить"
+                    Width="120"
+                    Margin="0,0,10,0"
+                    Command="{Binding RefreshCommand}" Click="Button_Click"/>
+
+            <Button Content="Экспорт"
+                    Width="120"
+                    Margin="0,0,10,0"
+                    Command="{Binding ExportCommand}" Click="Button_Click_1"/>
+            
+            <Button Content="Справка"
+                    Width="120"
+                    Click="Help_Click"/>
+        </StackPanel>
+
+        <!-- Вкладки -->
+        <TabControl Grid.Row="1" Grid.ColumnSpan="2">
+
+            <!-- CPU -->
+            <TabItem Header="Процессор">
+                <StackPanel Margin="10">
+                    <TextBlock Text="Модель:" FontWeight="Bold"/>
+                    <TextBlock Text="{Binding CpuInfo.Name}" Margin="0,0,0,10"/>
+
+                    <TextBlock Text="Производитель:" FontWeight="Bold"/>
+                    <TextBlock Text="{Binding CpuInfo.Manufacturer}" Margin="0,0,0,10"/>
+
+                    <TextBlock Text="Ядра:" FontWeight="Bold"/>
+                    <TextBlock Text="{Binding CpuInfo.CoreCount}" Margin="0,0,0,10"/>
+
+                    <TextBlock Text="Потоки:" FontWeight="Bold"/>
+                    <TextBlock Text="{Binding CpuInfo.ThreadCount}" Margin="0,0,0,10"/>
+
+                    <TextBlock Text="Частота (MHz):" FontWeight="Bold"/>
+                    <TextBlock Text="{Binding CpuInfo.BaseFrequency}" Margin="0,0,0,10"/>
+
+                    <TextBlock Text="Загрузка (%):" FontWeight="Bold"/>
+                    <ProgressBar Value="{Binding CpuInfo.LoadPercentage}"
+                                 Maximum="100"
+                                 Height="25"/>
+                </StackPanel>
+            </TabItem>
+
+            <!-- RAM -->
+            <TabItem Header="Память">
+                <StackPanel Margin="10">
+                    <TextBlock Text="Общий объём (байты):" FontWeight="Bold"/>
+                    <TextBlock Text="{Binding MemoryInfo.TotalMemoryBytes}" Margin="0,0,0,10"/>
+
+                    <TextBlock Text="Доступно (байты):" FontWeight="Bold"/>
+                    <TextBlock Text="{Binding MemoryInfo.AvailableMemoryBytes}" Margin="0,0,0,10"/>
+
+                    <TextBlock Text="Использование (%):" FontWeight="Bold"/>
+                    <ProgressBar Value="{Binding MemoryInfo.UsagePercentage}"
+                                 Maximum="100"
+                                 Height="25"/>
+
+                    <TextBlock Text="Модули памяти:" FontWeight="Bold" Margin="0,20,0,5"/>
+
+                    <ItemsControl ItemsSource="{Binding MemoryInfo.Modules}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Margin="0,0,0,10">
+                                    <TextBlock Text="{Binding Manufacturer}"/>
+                                    <TextBlock Text="{Binding CapacityBytes}"/>
+                                    <TextBlock Text="{Binding Speed}"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </StackPanel>
+            </TabItem>
+
+            <!-- DISKS -->
+            <TabItem Header="Диски">
+                <StackPanel Margin="10">
+
+                    <TextBlock Text="Физические диски:" FontWeight="Bold"/>
+
+                    <ItemsControl ItemsSource="{Binding DiskInfo.PhysicalDisks}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Margin="0,0,0,10">
+                                    <TextBlock Text="{Binding Model}"/>
+                                    <TextBlock Text="{Binding SizeBytes}"/>
+                                    <TextBlock Text="{Binding MediaType}"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+
+                    <TextBlock Text="Логические диски:" FontWeight="Bold" Margin="0,20,0,5"/>
+
+                    <ItemsControl ItemsSource="{Binding DiskInfo.LogicalDisks}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Margin="0,0,0,10">
+                                    <TextBlock Text="{Binding DriveLetter}"/>
+                                    <TextBlock Text="{Binding TotalSizeBytes}"/>
+                                    <TextBlock Text="{Binding FreeSizeBytes}"/>
+                                    <TextBlock Text="{Binding FileSystem}"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+
+                </StackPanel>
+            </TabItem>
+
+        </TabControl>
+    </Grid>
+</Window>
